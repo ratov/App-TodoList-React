@@ -54,3 +54,26 @@
 	width: 30%;
 	height: 50px;
 }
+
+.todo__menu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 15px;
+	margin-top: 20px;
+}
+
+.todo__list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.todo__list-left {
+	display: flex;
+	column-gap: 10px;
+	align-items: center;
+}
+
+.todo__list-option {
+	line-height: 3px;
+	cursor: pointer;
+}

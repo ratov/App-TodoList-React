@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Add from "./components/Add/Add";
 import "./style.css";
 
-//Todo1 1:01:00
-
 function App() {
 
 	const [todoArr, setTodoArr] = useState([]);
@@ -21,6 +19,16 @@ function App() {
 		}).format(new Date(date));
 	};
 
+	const handlerComplete = (id) => {
+		setTodoArr(todoArr.map((item, idx) => {
+			if(item.id === id) {
+				return {...item, isCompleted: !item.isCompleted}
+			} else {
+				return item;
+			}
+		}));
+	};
+
 	return (
 		<div className="App">
 			<div className="todo">
@@ -31,14 +39,15 @@ function App() {
 
 				<Add todo={todo} setTodo={setTodo} setTodoArr={setTodoArr} todoArr={todoArr} />
 
-				<ul>
+				<ul className="todo__menu">
 					{todoArr.map((item, idx) => {
 						return (
-							<li key={item.id}>
-								<label>
-									<input type="chekbox" />
-								</label>
-								<span>{item.name}</span>
+							<li className="todo__list" key={item.id}>
+								<div className="todo__list-left">
+									<input className="todo__list-input" onChange={() => handlerComplete(item.id)} type="checkbox" checked={item.isCompleted} />
+									<span className="todo__list-name">{item.name}</span>
+								</div>
+								<p className="todo__list-option">...</p>
 							</li>
 						)
 					})}
