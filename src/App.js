@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Add from "./components/Add/Add";
 import "./style.css";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faThumbTack, faStickyNote, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
 function App() {
 
 	const [todoArr, setTodoArr] = useState([]);
@@ -21,11 +25,27 @@ function App() {
 
 	const handlerComplete = (id) => {
 		setTodoArr(todoArr.map((item, idx) => {
-			if(item.id === id) {
-				return {...item, isCompleted: !item.isCompleted}
+			if (item.id === id) {
+				return { ...item, isCompleted: !item.isCompleted }
 			} else {
 				return item;
 			}
+		}));
+	};
+
+	const handlerOption = (id) => {
+		setTodoArr(todoArr.map((item) => {
+			if (item.id === id) {
+				return { ...item, option: !item.option }
+			} else {
+				return item;
+			}
+		}));
+	};
+
+	const handlerDelete = (id) => {
+		setTodoArr(todoArr.filter((item) => {
+			return item.id !== id;
 		}));
 	};
 
@@ -47,7 +67,25 @@ function App() {
 									<input className="todo__list-input" onChange={() => handlerComplete(item.id)} type="checkbox" checked={item.isCompleted} />
 									<span className="todo__list-name">{item.name}</span>
 								</div>
-								<p className="todo__list-option">...</p>
+								<p className="todo__list-option" onClick={() => handlerOption(item.id)}>...</p>
+								<ul className={`todo__list-options ${item.option ? 'active' : ''}`}>
+									<li className="todo__list-options-item">
+										<FontAwesomeIcon icon={faThumbTack} />
+										Pin on the top
+									</li>
+									<li className="todo__list-options-item">
+										<FontAwesomeIcon icon={faStickyNote} />
+										Add a menu
+									</li>
+									<li className="todo__list-options-item">
+										<FontAwesomeIcon icon={faEdit} />
+										Edit
+									</li>
+									<li className="todo__list-options-item" onClick={() => handlerDelete(item.id)}>
+										<FontAwesomeIcon icon={faTrashAlt} />
+										Delete
+									</li>
+								</ul>
 							</li>
 						)
 					})}
