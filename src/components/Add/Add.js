@@ -11,6 +11,7 @@ const Add = ({ todo, setTodo, setTodoArr, todoArr }) => {
 			isImportant: false,
 			isActive: true,
 			option: false,
+			memo: '',
 			id: Math.floor(Math.random() * 10000)
 		}]);
 		setTodo('');
@@ -20,7 +21,7 @@ const Add = ({ todo, setTodo, setTodoArr, todoArr }) => {
 		<div className="todo__add">
 			<form className="todo__left" onSubmit={addTodo}>
 				<label>
-					<input onChange={(e) => setTodo(e.target.value)} value={todo} className="todo__add-input" type="text" required />
+					<input maxLength={30} onChange={(e) => setTodo(e.target.value)} value={todo} className="todo__add-input" type="text" required />
 				</label>
 				<button type="submit" className="todo__add-btn">+</button>
 			</form>

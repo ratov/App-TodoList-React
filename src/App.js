@@ -49,6 +49,16 @@ function App() {
 		}));
 	};
 
+	const handlerEdit = (id) => {
+		setTodoArr(todoArr.map((item) => {
+			if (item.id === id) {
+				return { ...item, isChange: !item.isChange }
+			} else {
+				return item;
+			}
+		}));
+	};
+
 	return (
 		<div className="App">
 			<div className="todo">
@@ -65,7 +75,14 @@ function App() {
 							<li className="todo__list" key={item.id}>
 								<div className="todo__list-left">
 									<input className="todo__list-input" onChange={() => handlerComplete(item.id)} type="checkbox" checked={item.isCompleted} />
-									<span className="todo__list-name">{item.name}</span>
+									<div className="todo__list-text">
+										{item.isChange
+											? <textarea maxLength={30} className="todo__list-textarea" onChange={(e) => {
+												item.name = e.target.value
+											}}>{item.name}</textarea>
+											: <span className="todo__list-name">{item.name}</span>}
+											<span className="todo__list-memo">{item.memo}</span>
+									</div>
 								</div>
 								<p className="todo__list-option" onClick={() => handlerOption(item.id)}>...</p>
 								<ul className={`todo__list-options ${item.option ? 'active' : ''}`}>
@@ -77,9 +94,12 @@ function App() {
 										<FontAwesomeIcon icon={faStickyNote} />
 										Add a menu
 									</li>
-									<li className="todo__list-options-item">
+									<li className="todo__list-options-item" onClick={() => handlerEdit(item.id)}>
 										<FontAwesomeIcon icon={faEdit} />
-										Edit
+										{
+											item.isChange ? 'Save' : 'Edit'
+										}
+
 									</li>
 									<li className="todo__list-options-item" onClick={() => handlerDelete(item.id)}>
 										<FontAwesomeIcon icon={faTrashAlt} />
