@@ -11,6 +11,7 @@ const Add = ({ todo, setTodo, setTodoArr, todoArr }) => {
 			isImportant: false,
 			isActive: true,
 			option: false,
+			addMemo: false,
 			memo: '',
 			id: Math.floor(Math.random() * 10000)
 		}]);

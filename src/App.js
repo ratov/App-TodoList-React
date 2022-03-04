@@ -59,6 +59,16 @@ function App() {
 		}));
 	};
 
+	const handlerMemo = (id) => {
+		setTodoArr(todoArr.map((item, idx) => {
+			if (item.id === id) {
+				return { ...item, addMemo: !item.addMemo }
+			} else {
+				return item;
+			}
+		}))
+	};
+
 	return (
 		<div className="App">
 			<div className="todo">
@@ -77,11 +87,16 @@ function App() {
 									<input className="todo__list-input" onChange={() => handlerComplete(item.id)} type="checkbox" checked={item.isCompleted} />
 									<div className="todo__list-text">
 										{item.isChange
-											? <textarea maxLength={30} className="todo__list-textarea" onChange={(e) => {
+											? <textarea defaultValue={item.name} maxLength={30} className="todo__list-textarea" onChange={(e) => {
 												item.name = e.target.value
-											}}>{item.name}</textarea>
+											}}></textarea>
 											: <span className="todo__list-name">{item.name}</span>}
-											<span className="todo__list-memo">{item.memo}</span>
+
+										{
+											item.addMemo
+												? <textarea defaultValue={item.memo} onChange={(e) => item.memo = e.target.value}></textarea>
+												: <span className="todo__list-memo">{item.memo}</span>
+										}
 									</div>
 								</div>
 								<p className="todo__list-option" onClick={() => handlerOption(item.id)}>...</p>
@@ -90,9 +105,15 @@ function App() {
 										<FontAwesomeIcon icon={faThumbTack} />
 										Pin on the top
 									</li>
-									<li className="todo__list-options-item">
+									<li className="todo__list-options-item" onClick={() => handlerMemo(item.id)}>
 										<FontAwesomeIcon icon={faStickyNote} />
-										Add a menu
+										{
+											item.addMemo
+												? 'Save'
+												: item.memo.length !== 0
+													? 'Edit momo'
+													: 'Add a memo'
+										}
 									</li>
 									<li className="todo__list-options-item" onClick={() => handlerEdit(item.id)}>
 										<FontAwesomeIcon icon={faEdit} />
