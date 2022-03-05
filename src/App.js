@@ -5,6 +5,8 @@ import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faThumbTack, faStickyNote, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import TodoTop from "./components/TodoTop/TodoTop";
+import TodoBot from "./components/TodoBot/TodoBot";
 
 function App() {
 
@@ -28,7 +30,7 @@ function App() {
 			if (item.id === id) {
 				return { ...item, isCompleted: !item.isCompleted }
 			} else {
-				return item;
+				return { ...item, option: false };
 			}
 		}));
 	};
@@ -36,9 +38,9 @@ function App() {
 	const handlerOption = (id) => {
 		setTodoArr(todoArr.map((item) => {
 			if (item.id === id) {
-				return { ...item, option: !item.option }
+				return { ...item, option: !item.option, addMemo: false, isChange: false }
 			} else {
-				return item;
+				return { ...item, option: false }
 			}
 		}));
 	};
@@ -52,7 +54,7 @@ function App() {
 	const handlerEdit = (id) => {
 		setTodoArr(todoArr.map((item) => {
 			if (item.id === id) {
-				return { ...item, isChange: !item.isChange }
+				return { ...item, isChange: !item.isChange, addMemo: false }
 			} else {
 				return item;
 			}
@@ -62,12 +64,26 @@ function App() {
 	const handlerMemo = (id) => {
 		setTodoArr(todoArr.map((item, idx) => {
 			if (item.id === id) {
-				return { ...item, addMemo: !item.addMemo }
+				return { ...item, addMemo: !item.addMemo, isChange: false }
 			} else {
 				return item;
 			}
 		}))
 	};
+
+	const handlerPin = (id) => {
+		setTodoArr(todoArr.map((item, idx) => {
+			if (item.id === id) {
+				return { ...item, pin: !item.pin, option: false }
+			} else {
+				return item;
+			}
+		}))
+	};
+
+	const last = todoArr.length !== 0 ? todoArr.filter((item) => item.pin).reduce((acc, rec) => {
+		return rec
+	}, {}) : '';
 
 	return (
 		<div className="App">
@@ -80,30 +96,42 @@ function App() {
 				<Add todo={todo} setTodo={setTodo} setTodoArr={setTodoArr} todoArr={todoArr} />
 
 				<ul className="todo__menu">
-					{todoArr.map((item, idx) => {
+					{todoArr.map((item, idx, array) => {
 						return (
-							<li className="todo__list" key={item.id}>
+							<li
+								id={last.id === item.id ? 'last' : ''}
+								className={`todo__list ${item.pin ? 'pin' : ''}`}
+								key={item.id}>
+								{
+									item.pin
+										? <span className="todo__list-pin"><FontAwesomeIcon icon={faThumbTack} /></span>
+										: ''
+								}
 								<div className="todo__list-left">
 									<input className="todo__list-input" onChange={() => handlerComplete(item.id)} type="checkbox" checked={item.isCompleted} />
 									<div className="todo__list-text">
 										{item.isChange
-											? <textarea defaultValue={item.name} maxLength={30} className="todo__list-textarea" onChange={(e) => {
+											? <textarea id='changeName' defaultValue={item.name} maxLength={30} className="todo__list-textarea" onChange={(e) => {
 												item.name = e.target.value
 											}}></textarea>
 											: <span className="todo__list-name">{item.name}</span>}
 
 										{
 											item.addMemo
-												? <textarea defaultValue={item.memo} onChange={(e) => item.memo = e.target.value}></textarea>
+												? <textarea className="todo__list-memo-textarea" id='changeMemo' defaultValue={item.memo} onChange={(e) => item.memo = e.target.value}></textarea>
 												: <span className="todo__list-memo">{item.memo}</span>
 										}
 									</div>
 								</div>
 								<p className="todo__list-option" onClick={() => handlerOption(item.id)}>...</p>
 								<ul className={`todo__list-options ${item.option ? 'active' : ''}`}>
-									<li className="todo__list-options-item">
+									<li className="todo__list-options-item" onClick={() => handlerPin(item.id)}>
 										<FontAwesomeIcon icon={faThumbTack} />
-										Pin on the top
+										{
+											item.pin
+												? 'Unpin'
+												: 'Pin on the top'
+										}
 									</li>
 									<li className="todo__list-options-item" onClick={() => handlerMemo(item.id)}>
 										<FontAwesomeIcon icon={faStickyNote} />

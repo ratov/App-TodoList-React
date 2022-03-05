@@ -8,7 +8,7 @@ const Add = ({ todo, setTodo, setTodoArr, todoArr }) => {
 			name: todo,
 			isCompleted: false,
 			isChange: false,
-			isImportant: false,
+			pin: false,
 			isActive: true,
 			option: false,
 			addMemo: false,
@@ -18,17 +18,26 @@ const Add = ({ todo, setTodo, setTodoArr, todoArr }) => {
 		setTodo('');
 	};
 
+	const handlerAdd = (e) => {
+		setTodo(e.target.value);
+		setTodoArr(todoArr.map((item, idx) => {
+			return {...item, option: false}
+		}))
+	};
+
 	return (
 		<div className="todo__add">
 			<form className="todo__left" onSubmit={addTodo}>
 				<label>
-					<input maxLength={30} onChange={(e) => setTodo(e.target.value)} value={todo} className="todo__add-input" type="text" required />
+					<input maxLength={30} onChange={handlerAdd} value={todo} className="todo__add-input" type="text" required />
 				</label>
 				<button type="submit" className="todo__add-btn">+</button>
 			</form>
 			<div className="todo__right">
 				<select className="todo__add-select" name="" id="">
 					<option value="">all</option>
+					<option value="">completed</option>
+					<option value="">rocks</option>
 				</select>
 			</div>
 		</div>
