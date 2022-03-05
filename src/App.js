@@ -5,8 +5,6 @@ import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faThumbTack, faStickyNote, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import TodoTop from "./components/TodoTop/TodoTop";
-import TodoBot from "./components/TodoBot/TodoBot";
 
 function App() {
 
