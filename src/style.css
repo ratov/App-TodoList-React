@@ -21,7 +21,8 @@
 	transform: translate(-50%, -50%);
 	width: 400px;
 	height: 500px;
-	background-color: slategray;
+	background-color: #00000050;
+	color: #fff;
 	padding: 30px 25px;
 }
 
@@ -71,7 +72,7 @@
 	row-gap: 15px;
 	margin-top: 20px;
 	overflow-y: auto;
-	height: calc(100% - 110px);
+	height: calc(100% - 152px);
 	position: relative;
 	padding-left: 19px;
 	left: -20px;
@@ -122,10 +123,24 @@
 	position: absolute;
 	right: -10px;
 	top: 15px;
-	background-color: skyblue;
+	color: #fff;
+	background-color: #7d00f2;
 	z-index: 1;
 	border-radius: 3px;
+}
 
+.todo__days {
+	color: #fff;
+	text-align: center;
+	font-size: 25px;
+	margin-bottom: 3px;
+}
+
+.todo__date {
+	color: #fff;
+	text-align: center;
+	font-size: 16px;
+	margin-bottom: 20px;
 }
 
 .todo__list-options.active::before {
@@ -186,4 +201,18 @@
 	color: #fff;
 	background-color: slateblue;
 	width: 100%;
+}
+
+.todo__deleteCompleted {
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translate(-50%);
+	cursor: pointer;
+	transition: .3s;
+	letter-spacing: 2px;
+}
+
+.todo__deleteCompleted:hover {
+	color: red;
 }

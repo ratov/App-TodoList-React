@@ -8,6 +8,7 @@ import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faThumbTack, faStickyNote, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import DeleteCompleted from "./components/DeleteCompleted/DeleteCompleted";
 
 function App() {
 
@@ -106,6 +107,8 @@ function App() {
 		return rec
 	}, {}) : '';
 
+
+
 	return (
 		<>
 			<div className="vanta" ref={myRef}>
@@ -114,8 +117,8 @@ function App() {
 			<div className="App">
 				<div className="todo">
 					<div>
-						<p>{weekDays[date.getDay()]}</p>
-						<p>{toDate(date)}</p>
+						<p className="todo__days">{weekDays[date.getDay()]}</p>
+						<p className="todo__date">{toDate(date)}</p>
 					</div>
 
 					<Add status={status} setStatus={setStatus} todo={todo} setTodo={setTodo} setTodoArr={setTodoArr} todoArr={todoArr} />
@@ -192,6 +195,8 @@ function App() {
 							)
 						})}
 					</ul>
+
+					<DeleteCompleted todoArr={todoArr} setTodoArr={setTodoArr} />
 
 				</div>
 			</div>
