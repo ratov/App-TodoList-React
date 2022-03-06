@@ -178,3 +178,12 @@
 	left: -3px;
 	transform: translate(-100%, -10%) rotate(-45deg);
 }
+
+.vanta {
+	position: fixed;
+	z-index: 0;
+	height: 100vh;
+	color: #fff;
+	background-color: slateblue;
+	width: 100%;
+}
