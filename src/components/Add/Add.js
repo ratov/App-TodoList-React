@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Add = ({ todo, setTodo, setTodoArr, todoArr }) => {
+const Add = ({ status, setStatus, todo, setTodo, setTodoArr, todoArr }) => {
 
 	const addTodo = (e) => {
 		e.preventDefault();
@@ -33,13 +33,15 @@ const Add = ({ todo, setTodo, setTodoArr, todoArr }) => {
 				</label>
 				<button type="submit" className="todo__add-btn">+</button>
 			</form>
+
 			<div className="todo__right">
-				<select className="todo__add-select" name="" id="">
-					<option value="">all</option>
-					<option value="">completed</option>
-					<option value="">rocks</option>
+				<select defaultValue={'all'} className="todo__add-select" onChange={(e) => setStatus(e.target.value)}>
+					<option value="all">all</option>
+					<option value="completed">completed</option>
+					<option value="active">active</option>
 				</select>
 			</div>
+
 		</div>
 	);
 };

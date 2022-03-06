@@ -10,6 +10,7 @@ function App() {
 
 	const [todoArr, setTodoArr] = useState([]);
 	const [todo, setTodo] = useState('');
+	const [status, setStatus] = useState('all');
 
 	let date = new Date();
 	// let weekDays = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
@@ -91,10 +92,18 @@ function App() {
 					<p>{toDate(date)}</p>
 				</div>
 
-				<Add todo={todo} setTodo={setTodo} setTodoArr={setTodoArr} todoArr={todoArr} />
+				<Add status={status} setStatus={setStatus} todo={todo} setTodo={setTodo} setTodoArr={setTodoArr} todoArr={todoArr} />
 
 				<ul className="todo__menu">
-					{todoArr.map((item, idx, array) => {
+					{todoArr.filter((item, idx) => {
+						if (status === 'active') {
+							return !item.isCompleted;
+						} else if (status === 'completed') {
+							return item.isCompleted;
+						} else {
+							return item;
+						}
+					}).map((item, idx, array) => {
 						return (
 							<li
 								id={last.id === item.id ? 'last' : ''}
@@ -112,7 +121,7 @@ function App() {
 											? <textarea id='changeName' defaultValue={item.name} maxLength={30} className="todo__list-textarea" onChange={(e) => {
 												item.name = e.target.value
 											}}></textarea>
-											: <span className="todo__list-name">{item.name}</span>}
+											: <span className={`todo__list-name ${item.isCompleted ? 'complete' : ''}`}>{item.name}</span>}
 
 										{
 											item.addMemo
