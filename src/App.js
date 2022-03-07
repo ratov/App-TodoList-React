@@ -34,7 +34,7 @@ function App() {
 	}, [vantaEffect]);
 
 	let date = new Date();
-	// let weekDays = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+	let weekDaysRu = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
 	let weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 	const toDate = (date) => {
@@ -44,6 +44,24 @@ function App() {
 			year: 'numeric'
 		}).format(new Date(date));
 	};
+
+	useEffect(() => {
+		if (localStorage.getItem('status') !== null) {
+			setStatus(localStorage.getItem('status'))
+		}
+		
+		if (localStorage.getItem('todo') !== null) {
+			setTodoArr(JSON.parse(localStorage.getItem('todo')));
+		}
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem('todo', JSON.stringify(todoArr));
+	}, [todoArr]);
+
+	useEffect(() => {
+		localStorage.setItem('status', status)
+	}, [status]);
 
 	return (
 		<>
