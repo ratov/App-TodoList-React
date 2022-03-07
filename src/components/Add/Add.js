@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Add = ({ status, setStatus, todo, setTodo, setTodoArr, todoArr }) => {
+const Add = ({ setStatus, todo, setTodo, setTodoArr, todoArr }) => {
 
 	const addTodo = (e) => {
 		e.preventDefault();
@@ -20,9 +20,7 @@ const Add = ({ status, setStatus, todo, setTodo, setTodoArr, todoArr }) => {
 
 	const handlerAdd = (e) => {
 		setTodo(e.target.value);
-		setTodoArr(todoArr.map((item, idx) => {
-			return {...item, option: false}
-		}))
+		setTodoArr(todoArr.map(item => { return { ...item, option: false } }))
 	};
 
 	return (

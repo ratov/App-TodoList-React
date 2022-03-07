@@ -1,16 +1,10 @@
 import React from 'react';
 
-const DeleteCompleted = ({todoArr, setTodoArr}) => {
+const DeleteCompleted = ({ todoArr, setTodoArr }) => {
 
-	const deleteAllCompleted = () => {
-		setTodoArr(todoArr.filter((item, idx) => {
-			return !item.isCompleted;
-		}))
-	};
+	const deleteAllCompleted = () => setTodoArr(todoArr.filter(item => !item.isCompleted))
 
-	return (
-		<p className="todo__deleteCompleted" onClick={deleteAllCompleted}>Delete completed</p>
-	);
+	return <p className="todo__deleteCompleted" onClick={deleteAllCompleted}>Delete completed</p>
 };
 
 export default DeleteCompleted;

@@ -82,7 +82,7 @@
 .todo__list {
 	display: flex;
 	justify-content: space-between;
-	position: relative;	
+	position: relative;
 }
 
 #last {
@@ -215,4 +215,11 @@
 
 .todo__deleteCompleted:hover {
 	color: red;
+}
+
+.todo__tasks {
+	color: #fff;
+	font-size: 20px;
+	text-align: center;
+	margin-top: 15px;
 }
