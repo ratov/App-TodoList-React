@@ -49,7 +49,7 @@ function App() {
 		if (localStorage.getItem('status') !== null) {
 			setStatus(localStorage.getItem('status'))
 		}
-		
+
 		if (localStorage.getItem('todo') !== null) {
 			setTodoArr(JSON.parse(localStorage.getItem('todo')));
 		}
